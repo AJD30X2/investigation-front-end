@@ -55,7 +55,7 @@ export function AppShell({
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto flex max-w-[1500px] flex-col gap-6 px-4 py-6 lg:flex-row lg:px-8">
-        <aside className="panel h-fit shrink-0 overflow-hidden lg:sticky lg:top-6 lg:w-72">
+        <aside className="panel h-fit shrink-0 overflow-hidden lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-72">
           <div className="bg-coffee px-5 py-6">
             <div className="flex items-center gap-2 text-primary-foreground/90">
               <Coffee className="size-5" />

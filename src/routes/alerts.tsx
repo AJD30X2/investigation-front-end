@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { CaseList } from "@/components/CaseList";
 import { applyFilters, FilterBar, type Filters } from "@/components/FilterBar";
