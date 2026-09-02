@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import type { CaseFile } from "@/lib/cases";
-import { CaseInvestigation } from "@/components/CaseInvestigation";
 
 const sevTone: Record<CaseFile["severity"], string> = {
   low: "bg-success/15 text-success",
@@ -16,7 +15,7 @@ const dispTone: Record<CaseFile["disposition"], string> = {
 };
 
 export function CaseList({ cases, emptyLabel }: { cases: CaseFile[]; emptyLabel: string }) {
-  const [active, setActive] = useState<CaseFile | null>(null);
+  const navigate = useNavigate();
 
   if (cases.length === 0) {
     return (
@@ -25,47 +24,43 @@ export function CaseList({ cases, emptyLabel }: { cases: CaseFile[]; emptyLabel:
   }
 
   return (
-    <>
-      <div className="grid gap-4">
-        {cases.map((c) => (
-          <button
-            key={c.id}
-            onClick={() => setActive(c)}
-            className="panel group w-full px-5 py-5 text-left transition-transform hover:-translate-y-0.5"
-          >
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-xs text-muted-foreground">{c.id}</span>
-                  <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium capitalize ${sevTone[c.severity]}`}>
-                    {c.severity} risk
-                  </span>
-                  <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium capitalize ${dispTone[c.disposition]}`}>
-                    {c.disposition}
-                  </span>
-                </div>
-                <h3 className="mt-2 text-base font-semibold">{c.client}</h3>
-                <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{c.alertReason}</p>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  {c.signal} · {c.channel} · {c.corridor} · {c.openedAt}
-                  {c.escalatedBy ? ` · raised by ${c.escalatedBy}` : ""}
-                </p>
+    <div className="grid gap-4">
+      {cases.map((c) => (
+        <button
+          key={c.id}
+          onClick={() => navigate({ to: "/cases/$caseId", params: { caseId: c.id } })}
+          className="panel group w-full px-5 py-5 text-left transition-transform hover:-translate-y-0.5"
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono text-xs text-muted-foreground">{c.id}</span>
+                <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium capitalize ${sevTone[c.severity]}`}>
+                  {c.severity} risk
+                </span>
+                <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium capitalize ${dispTone[c.disposition]}`}>
+                  {c.disposition}
+                </span>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="text-right">
-                  <p className="text-lg font-semibold">
-                    {c.currency} {c.amount.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-muted-foreground">Risk score {c.riskScore}/100</p>
-                </div>
-                <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
-              </div>
+              <h3 className="mt-2 text-base font-semibold">{c.client}</h3>
+              <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{c.alertReason}</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {c.signal} · {c.channel} · {c.corridor} · {c.openedAt}
+                {c.escalatedBy ? ` · raised by ${c.escalatedBy}` : ""}
+              </p>
             </div>
-          </button>
-        ))}
-      </div>
-
-      <CaseInvestigation caseFile={active} onClose={() => setActive(null)} />
-    </>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <p className="text-lg font-semibold">
+                  {c.currency} {c.amount.toLocaleString()}
+                </p>
+                <p className="text-xs text-muted-foreground">Risk score {c.riskScore}/100</p>
+              </div>
+              <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+            </div>
+          </div>
+        </button>
+      ))}
+    </div>
   );
 }
