@@ -1,60 +1,29 @@
-import type { Disposition } from "@/lib/cases";
+import { FolderOpen } from "lucide-react";
+import type { Disposition, WorkStatus } from "@/lib/cases";
 
 export type Filters = {
   disposition: Disposition | "all";
   severity: "all" | "low" | "medium" | "high";
+  workStatus: WorkStatus | "all";
   query: string;
 };
-
-const DISPOSITIONS: { key: Disposition | "all"; label: string }[] = [
-  { key: "all", label: "All actions" },
-  { key: "block", label: "Block" },
-  { key: "monitor", label: "Monitor" },
-  { key: "escalate", label: "Escalate" },
-];
-
-const SEVERITIES: Filters["severity"][] = ["all", "low", "medium", "high"];
 
 export function FilterBar({
   filters,
   onChange,
+  total,
 }: {
   filters: Filters;
   onChange: (f: Filters) => void;
+  total: number;
 }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <div className="flex flex-wrap gap-1.5 rounded-full bg-muted p-1">
-        {DISPOSITIONS.map((d) => (
-          <button
-            key={d.key}
-            onClick={() => onChange({ ...filters, disposition: d.key })}
-            className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-              filters.disposition === d.key
-                ? "bg-card text-foreground shadow-soft"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {d.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap gap-1.5 rounded-full bg-muted p-1">
-        {SEVERITIES.map((s) => (
-          <button
-            key={s}
-            onClick={() => onChange({ ...filters, severity: s })}
-            className={`rounded-full px-3.5 py-1.5 text-xs font-medium capitalize transition-colors ${
-              filters.severity === s
-                ? "bg-card text-foreground shadow-soft"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {s === "all" ? "Any risk" : s}
-          </button>
-        ))}
-      </div>
+      <span className="inline-flex h-9 items-center gap-2 rounded-full bg-muted px-4 text-xs font-medium text-muted-foreground">
+        <FolderOpen className="size-3.5" />
+        <span className="text-sm font-semibold text-foreground">{total}</span>
+        {total === 1 ? "case" : "cases"} total
+      </span>
 
       <input
         value={filters.query}
@@ -66,15 +35,22 @@ export function FilterBar({
   );
 }
 
-export function applyFilters<T extends { disposition: Disposition; severity: string; client: string; id: string; alertReason: string }>(
-  rows: T[],
-  f: Filters,
-) {
+export function applyFilters<
+  T extends {
+    disposition: Disposition;
+    severity: string;
+    workStatus: WorkStatus;
+    client: string;
+    id: string;
+    alertReason: string;
+  },
+>(rows: T[], f: Filters) {
   const q = f.query.trim().toLowerCase();
   return rows.filter(
     (r) =>
       (f.disposition === "all" || r.disposition === f.disposition) &&
       (f.severity === "all" || r.severity === f.severity) &&
+      (f.workStatus === "all" || r.workStatus === f.workStatus) &&
       (!q ||
         r.client.toLowerCase().includes(q) ||
         r.id.toLowerCase().includes(q) ||
