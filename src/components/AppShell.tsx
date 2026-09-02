@@ -57,11 +57,11 @@ export function AppShell({
       <div className="mx-auto flex max-w-[1500px] flex-col gap-6 px-4 py-6 lg:flex-row lg:px-8">
         <aside className="panel h-fit shrink-0 overflow-hidden lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-72">
           <div className="bg-coffee px-5 py-6">
-            <div className="flex items-center gap-2 text-primary-foreground/90">
+            <div className="flex items-center gap-2 text-cream">
               <Coffee className="size-5" />
               <span className="text-sm font-semibold tracking-[0.18em] uppercase">Sentinel</span>
             </div>
-            <p className="mt-2 text-xs leading-relaxed text-primary-foreground/70">
+            <p className="mt-2 text-xs leading-relaxed text-cream/70">
               Autonomous financial crime investigation desk
             </p>
           </div>
