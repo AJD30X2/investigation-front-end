@@ -14,6 +14,7 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuditRouteImport } from './routes/audit'
 import { Route as EscalatedRouteImport } from './routes/escalated'
 import { Route as SavedRouteImport } from './routes/saved'
+import { Route as CasesCaseIdRouteImport } from './routes/cases.$caseId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const SavedRoute = SavedRouteImport.update({
   path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CasesCaseIdRoute = CasesCaseIdRouteImport.update({
+  id: '/cases/$caseId',
+  path: '/cases/$caseId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/audit': typeof AuditRoute
   '/escalated': typeof EscalatedRoute
   '/saved': typeof SavedRoute
+  '/cases/$caseId': typeof CasesCaseIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/audit': typeof AuditRoute
   '/escalated': typeof EscalatedRoute
   '/saved': typeof SavedRoute
+  '/cases/$caseId': typeof CasesCaseIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/audit': typeof AuditRoute
   '/escalated': typeof EscalatedRoute
   '/saved': typeof SavedRoute
+  '/cases/$caseId': typeof CasesCaseIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/alerts' | '/audit' | '/escalated' | '/saved'
+  fullPaths:
+    '/' | '/alerts' | '/audit' | '/escalated' | '/saved' | '/cases/$caseId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/alerts' | '/audit' | '/escalated' | '/saved'
-  id: '__root__' | '/' | '/alerts' | '/audit' | '/escalated' | '/saved'
+  to: '/' | '/alerts' | '/audit' | '/escalated' | '/saved' | '/cases/$caseId'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/audit'
+    | '/escalated'
+    | '/saved'
+    | '/cases/$caseId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   AuditRoute: typeof AuditRoute
   EscalatedRoute: typeof EscalatedRoute
   SavedRoute: typeof SavedRoute
+  CasesCaseIdRoute: typeof CasesCaseIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cases/$caseId': {
+      id: '/cases/$caseId'
+      path: '/cases/$caseId'
+      fullPath: '/cases/$caseId'
+      preLoaderRoute: typeof CasesCaseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuditRoute: AuditRoute,
   EscalatedRoute: EscalatedRoute,
   SavedRoute: SavedRoute,
+  CasesCaseIdRoute: CasesCaseIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
