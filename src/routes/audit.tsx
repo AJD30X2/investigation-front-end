@@ -28,18 +28,11 @@ function AuditPage() {
   const [filters, setFilters] = useState<Filters>({
     disposition: "all",
     severity: "all",
+    workStatus: "all",
     query: "",
   });
-  const rows = applyFilters(
-    CASES.filter((c) => c.status === "audit"),
-    filters,
-  );
-
-  return (
-    <AppShell
-      title="Audit-ready explanations"
-      subtitle="Cases whose reasoning chain is complete and replayable, each paired with its filing reference."
-      toolbar={<FilterBar filters={filters} onChange={setFilters} />}
+...
+      toolbar={<FilterBar filters={filters} onChange={setFilters} total={rows.length} />}
     >
       <CaseList cases={rows} emptyLabel="No audit-ready cases match these filters." />
     </AppShell>

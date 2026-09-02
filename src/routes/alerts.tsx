@@ -29,6 +29,7 @@ function AlertsPage() {
   const [filters, setFilters] = useState<Filters>({
     disposition: "all",
     severity: "all",
+    workStatus: "all",
     query: "",
   });
   const rows = applyFilters(
@@ -42,8 +43,19 @@ function AlertsPage() {
       subtitle="Signals received from the bank core, each with its primary alert reason. Open a case to run the agent pipeline."
       toolbar={
         <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-          <FilterBar filters={filters} onChange={setFilters} />
-          <RiskSelect value={filters.severity} onChange={(severity) => setFilters({ ...filters, severity })} />
+          <FilterBar filters={filters} onChange={setFilters} total={rows.length} />
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <ToolbarSelect
+              value={filters.severity}
+              onChange={(severity) => setFilters({ ...filters, severity })}
+              options={RISK_OPTIONS}
+            />
+            <ToolbarSelect
+              value={filters.workStatus}
+              onChange={(workStatus) => setFilters({ ...filters, workStatus })}
+              options={STATUS_OPTIONS}
+            />
+          </div>
         </div>
       }
     >
@@ -59,21 +71,31 @@ const RISK_OPTIONS: { value: Filters["severity"]; label: string }[] = [
   { value: "low", label: "Low risk" },
 ];
 
-function RiskSelect({
+const STATUS_OPTIONS: { value: Filters["workStatus"]; label: string }[] = [
+  { value: "all", label: "All statuses" },
+  { value: "open", label: "Open" },
+  { value: "pending", label: "Pending" },
+  { value: "under_review", label: "Under review" },
+  { value: "closed", label: "Closed" },
+];
+
+function ToolbarSelect<T extends string>({
   value,
   onChange,
+  options,
 }: {
-  value: Filters["severity"];
-  onChange: (value: Filters["severity"]) => void;
+  value: T;
+  onChange: (value: T) => void;
+  options: { value: T; label: string }[];
 }) {
   return (
     <div className="relative shrink-0">
       <select
         value={value}
-        onChange={(e) => onChange(e.target.value as Filters["severity"])}
+        onChange={(e) => onChange(e.target.value as T)}
         className="h-9 w-full min-w-44 cursor-pointer appearance-none rounded-full border border-input bg-card px-4 pr-10 text-sm outline-none transition-shadow focus:ring-2 focus:ring-ring/40 xl:w-auto"
       >
-        {RISK_OPTIONS.map((o) => (
+        {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}
           </option>
