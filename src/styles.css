@@ -114,9 +114,9 @@
   --ring: oklch(0.66 0.06 55);
   --gradient-coffee: linear-gradient(
     140deg,
-    oklch(0.26 0.03 48) 0%,
-    oklch(0.2 0.024 42) 50%,
-    oklch(0.17 0.018 60) 100%
+    oklch(0.42 0.05 52) 0%,
+    oklch(0.34 0.04 46) 50%,
+    oklch(0.29 0.032 58) 100%
   );
   --shadow-soft: 0 18px 44px -26px oklch(0.08 0.02 48 / 0.8);
 }

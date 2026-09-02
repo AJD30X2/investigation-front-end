@@ -28,6 +28,7 @@ function SavedPage() {
   const [filters, setFilters] = useState<Filters>({
     disposition: "all",
     severity: "all",
+    workStatus: "all",
     query: "",
   });
   const rows = applyFilters(
@@ -39,7 +40,7 @@ function SavedPage() {
     <AppShell
       title="Reference cases"
       subtitle="Stored for later reference — typology comparisons and continuing activity reviews."
-      toolbar={<FilterBar filters={filters} onChange={setFilters} />}
+      toolbar={<FilterBar filters={filters} onChange={setFilters} total={rows.length} />}
     >
       <CaseList cases={rows} emptyLabel="No saved cases match these filters." />
     </AppShell>

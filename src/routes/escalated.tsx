@@ -28,6 +28,7 @@ function EscalatedPage() {
   const [filters, setFilters] = useState<Filters>({
     disposition: "all",
     severity: "all",
+    workStatus: "all",
     query: "",
   });
   const rows = applyFilters(
@@ -39,7 +40,7 @@ function EscalatedPage() {
     <AppShell
       title="Escalated to senior"
       subtitle="Every case a junior analyst raised for senior judgement, with the escalating analyst on record."
-      toolbar={<FilterBar filters={filters} onChange={setFilters} />}
+      toolbar={<FilterBar filters={filters} onChange={setFilters} total={rows.length} />}
     >
       <CaseList cases={rows} emptyLabel="Nothing has been escalated under these filters." />
     </AppShell>
