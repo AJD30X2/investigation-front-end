@@ -32,15 +32,13 @@ export function CaseInvestigation({
     <div className="space-y-5">
       <div className="panel overflow-hidden">
         <div className="bg-coffee px-5 py-5">
-          <p className="font-mono text-xs text-primary-foreground/70">{caseFile.id}</p>
-          <h2 className="mt-1 text-xl font-semibold text-primary-foreground">
-            {caseFile.client}
-          </h2>
-          <p className="mt-1 text-sm text-primary-foreground/75">
+          <p className="font-mono text-xs text-cream/70">{caseFile.id}</p>
+          <h2 className="mt-1 text-xl font-semibold text-cream">{caseFile.client}</h2>
+          <p className="mt-1 text-sm text-cream/75">
             {caseFile.currency} {caseFile.amount.toLocaleString()} · {caseFile.corridor} ·{" "}
             {caseFile.channel}
           </p>
-          <p className="mt-3 rounded-2xl bg-primary-foreground/10 px-4 py-2.5 text-xs text-primary-foreground/85">
+          <p className="mt-3 rounded-2xl bg-cream/10 px-4 py-2.5 text-xs text-cream/85">
             Primary alert reason — {caseFile.alertReason}
           </p>
         </div>
