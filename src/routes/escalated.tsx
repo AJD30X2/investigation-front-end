@@ -31,7 +31,15 @@ function EscalatedPage() {
     workStatus: "all",
     query: "",
   });
-...
+  const rows = applyFilters(
+    CASES.filter((c) => c.status === "escalated" || Boolean(c.escalatedBy)),
+    filters,
+  );
+
+  return (
+    <AppShell
+      title="Escalated to senior"
+      subtitle="Every case a junior analyst raised for senior judgement, with the escalating analyst on record."
       toolbar={<FilterBar filters={filters} onChange={setFilters} total={rows.length} />}
     >
       <CaseList cases={rows} emptyLabel="Nothing has been escalated under these filters." />
