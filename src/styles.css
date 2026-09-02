@@ -41,6 +41,7 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
+  --color-cream: var(--cream);
   --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
@@ -48,6 +49,7 @@
 :root {
   --radius: 0.75rem;
   --background: oklch(0.965 0.008 75);
+  --cream: oklch(0.95 0.012 78);
   --foreground: oklch(0.26 0.024 55);
   --surface: oklch(0.985 0.006 80);
   --surface-2: oklch(0.935 0.012 72);

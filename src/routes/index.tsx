@@ -43,19 +43,19 @@ function AuthPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-[1.05fr_1fr]">
       <section className="bg-coffee relative hidden flex-col justify-between px-12 py-14 lg:flex">
-        <div className="flex items-center gap-2 text-primary-foreground">
+        <div className="flex items-center gap-2 text-cream">
           <Coffee className="size-5" />
           <span className="text-sm font-semibold tracking-[0.2em] uppercase">Sentinel</span>
         </div>
         <div className="max-w-md">
-          <h2 className="text-3xl leading-tight font-semibold text-primary-foreground">
+          <h2 className="text-3xl leading-tight font-semibold text-cream">
             Autonomous financial crime investigation, explained end to end.
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-primary-foreground/75">
+          <p className="mt-4 text-sm leading-relaxed text-cream/75">
             Detection, evidence retrieval, opposing hypotheses, contradiction resolution and a
             next-best-action recommendation — every step recorded in a replayable audit trail.
           </p>
-          <ul className="mt-8 space-y-3 text-sm text-primary-foreground/80">
+          <ul className="mt-8 space-y-3 text-sm text-cream/80">
             {[
               { icon: Layers, t: "Seven cooperating agents per case" },
               { icon: Lock, t: "Evidence access scoped to your clearance" },
@@ -68,7 +68,7 @@ function AuthPage() {
             ))}
           </ul>
         </div>
-        <p className="text-xs text-primary-foreground/50">
+        <p className="text-xs text-cream/60">
           Demonstration environment · synthetic case data
         </p>
       </section>
