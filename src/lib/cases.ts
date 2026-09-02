@@ -2,6 +2,7 @@ import type { Role } from "./session";
 
 export type Disposition = "block" | "monitor" | "escalate";
 export type CaseStatus = "open" | "escalated" | "audit" | "saved";
+export type WorkStatus = "open" | "pending" | "under_review" | "closed";
 
 export type CaseFile = {
   id: string;
@@ -17,6 +18,7 @@ export type CaseFile = {
   riskScore: number;
   severity: "low" | "medium" | "high";
   status: CaseStatus;
+  workStatus: WorkStatus;
   disposition: Disposition;
   regulatory: string;
   sarRef: string;
@@ -39,6 +41,7 @@ export const CASES: CaseFile[] = [
     riskScore: 82,
     severity: "high",
     status: "open",
+    workStatus: "open",
     disposition: "escalate",
     regulatory: "FATF R.10 / AML Act §5318(g) — SAR window 30 days",
     sarRef: "SAR-2026-0912",
@@ -58,6 +61,7 @@ export const CASES: CaseFile[] = [
     riskScore: 64,
     severity: "medium",
     status: "open",
+    workStatus: "pending",
     disposition: "monitor",
     regulatory: "PSR APP-fraud reimbursement assessment",
     sarRef: "STR-2026-0447",
@@ -77,6 +81,7 @@ export const CASES: CaseFile[] = [
     riskScore: 91,
     severity: "high",
     status: "escalated",
+    workStatus: "under_review",
     disposition: "block",
     regulatory: "OFAC screening exposure — 314(b) info sharing eligible",
     sarRef: "SAR-2026-0918",
@@ -97,6 +102,7 @@ export const CASES: CaseFile[] = [
     riskScore: 31,
     severity: "low",
     status: "saved",
+    workStatus: "closed",
     disposition: "monitor",
     regulatory: "No filing obligation — retain 5 years",
     sarRef: "—",
@@ -116,6 +122,7 @@ export const CASES: CaseFile[] = [
     riskScore: 88,
     severity: "high",
     status: "audit",
+    workStatus: "closed",
     disposition: "block",
     regulatory: "SAR filed — continuing activity review at 90 days",
     sarRef: "SAR-2026-0903",
@@ -135,6 +142,7 @@ export const CASES: CaseFile[] = [
     riskScore: 57,
     severity: "medium",
     status: "audit",
+    workStatus: "under_review",
     disposition: "escalate",
     regulatory: "Consumer-harm review — STR discretionary",
     sarRef: "STR-2026-0451",
@@ -155,6 +163,7 @@ export const CASES: CaseFile[] = [
     riskScore: 73,
     severity: "high",
     status: "escalated",
+    workStatus: "pending",
     disposition: "escalate",
     regulatory: "EU AMLD6 — enhanced due diligence trigger",
     sarRef: "STR-2026-0459",
@@ -175,6 +184,7 @@ export const CASES: CaseFile[] = [
     riskScore: 44,
     severity: "low",
     status: "saved",
+    workStatus: "closed",
     disposition: "monitor",
     regulatory: "Internal fraud policy — no regulatory filing",
     sarRef: "—",
